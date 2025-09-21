@@ -1,0 +1,831 @@
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ash, la más bella 🌸</title>
+    
+    <meta property="og:title" content="Lirios para un lirio 🌸">
+    <meta property="og:description" content="Te regalo estas flores amarillas 🌸✨">
+    <meta property="og:image" content="https://feliz-21-de-septiembre-ash.netlify.app/assets/ash.png">
+    <meta property="og:url" content="https://feliz-21-de-septiembre-ash.netlify.app/">
+    <meta property="og:type" content="website">
+
+    <!-- <link rel="shortcut icon" href="img/logo.png"> -->
+
+    <!-- <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Feliz día de las Flores Amarillas🌻">
+    <meta name="twitter:description" content="Te regalo estas flores amarillas 🌻✨">
+    <meta name="twitter:image" content="https://te-deseo-feliz-21-de-septiembre.netlify.app/assets/icon.png"> -->
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Parisienne&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;❤️&lt;/text&gt;&lt;/svg&gt;">
+    <style>
+        *,
+        *::after,
+        *::before {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-color: #83cdff;
+            --fl-speed: 0.8s;
+            --speed-leaf: 2s;
+            --petal-gradient-start: #ff8c00;
+            --petal-gradient-mid: #ffd700;
+            --petal-gradient-end: #ffff00;
+            --petal-shadow: rgba(255, 215, 0, 0.4);
+            --center-color-1: #654321;
+            --center-color-2: #8b4513;
+            --center-color-3: #2f1b14;
+            --center-shadow: rgba(139, 69, 19, 0.6);
+            --stem-gradient-1: #2d5016;
+            --stem-gradient-2: #4a7c23;
+            --stem-gradient-3: #6b8e23;
+            --leaf-gradient-1: rgba(45, 80, 22, 0.6);
+            --leaf-gradient-2: #4a7c23;
+            --leaf-gradient-3: #6b8e23;
+            --grass-color: #4a7c23;
+            --light-seeds-1: #8b4513;
+            --light-seeds-2: #654321;
+            --light-seeds-shadow: rgba(139, 69, 19, 0.8);
+        }
+        
+        body {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: var(--dark-color);
+            overflow: hidden;
+            perspective: 1000px;
+            position: relative;
+            font-family: "Sour Gummy", system-ui, cursive;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("assets/back.jpeg");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            filter: blur(15px);
+            z-index: -1;
+        }
+
+        .love-title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffff00;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: normal;
+            text-align: center;
+            z-index: 100;
+            text-shadow: 0 0 0px #fff, 0 0 0px #fff, 0 0 1px #ff0, 0 0 5px #ff0, 0 0 1px #ff0;
+        }
+
+        .music-player {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(47, 27, 20, 0.7);
+            padding: 10px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 215, 0, .2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            min-width: 260px;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .play-pause-btn {
+            background: rgb(236, 197, 0);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .play-pause-btn:hover {
+            background: rgb(236, 197, 0);
+            transform: scale(1.05);
+        }
+
+        .play-pause-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .progress-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .song-info {
+            font-size: 13px;
+            color: var(--petal-gradient-mid);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--petal-gradient-start), var(--petal-gradient-mid));
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: rgba(255, 215, 0, 0.8);
+            font-weight: 400;
+        }
+
+        #particle-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 99;
+        }
+        .particle {
+            position: absolute; background-color: rgba(255, 221, 0, 0.8);
+            border-radius: 50%; opacity: 0;
+            box-shadow: 0 0 8px rgba(255, 221, 0, 0.9), 0 0 12px rgba(255, 221, 0, 0.5);
+            animation: particle-rise 6s ease-out infinite;
+        }
+        @keyframes particle-rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-30vh) scale(0); opacity: 0; }
+        }
+        
+        #falling-flower-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .falling-flower-wrapper {
+            position: absolute; top: -50px;
+            animation: fallDown linear forwards;
+            will-change: transform;
+        }
+        .falling-flower {
+            position: relative;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path fill="%23FFD700" d="M50 0 L58.7 34.5 L90.5 25 L65.5 41.3 L99 61.8 L61.8 61.8 L75 90.5 L50 67 L25 90.5 L38.2 61.8 L1 61.8 L34.5 41.3 L9.5 25 L41.3 34.5 Z"/><circle cx="50" cy="50" r="20" fill="%23654321"/></svg>');
+            background-size: contain; background-repeat: no-repeat;
+            animation: sway ease-in-out infinite alternate;
+            will-change: transform;
+        }
+        @keyframes fallDown {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(110vh); opacity: 0; }
+        }
+        @keyframes sway {
+            from { transform: translateX(-25px) rotate(-45deg); }
+            to { transform: translateX(25px) rotate(45deg); }
+        }
+        
+        .night{display:none;}
+        .flowers { position: relative; transform: scale(0.7); z-index: 2; }
+        .flower { position: absolute; bottom: 10vmin; transform-origin: bottom center; z-index: 50; will-change: transform; }
+        .flower--1 { animation: moving-flower-1 4s linear infinite; }
+        .flower--1 .flower__line { height: 70vmin; animation-delay: 0.3s; }
+        .flower--1 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 1.6s backwards; }
+        .flower--1 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 1.4s backwards; }
+        .flower--1 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 1.2s backwards; }
+        .flower--1 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 1s backwards; }
+        .flower--2 { left: 50%; transform: rotate(20deg); animation: moving-flower-2 4s linear infinite; }
+        .flower--2 .flower__line { height: 50vmin; animation-delay: 0.6s; }
+        .flower--2 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 1.9s backwards; }
+        .flower--2 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 1.7s backwards; }
+        .flower--2 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 1.5s backwards; }
+        .flower--2 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 1.3s backwards; }
+        .flower--3 { left: 50%; transform: rotate(-15deg); animation: moving-flower-3 4s linear infinite; }
+        .flower--3 .flower__line { animation-delay: 0.9s; }
+        .flower--3 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 2.5s backwards; }
+        .flower--3 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 2.3s backwards; }
+        .flower--3 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 2.1s backwards; }
+        .flower--3 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 1.9s backwards; }
+        .flower--4 { left: -25%; z-index: -6; transform: rotate(10deg); animation: moving-flower-4 3.5s linear infinite; }
+        .flower--4 .flower__line { height: 95vmin; animation-delay: 1.2s; }
+        .flower--4 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 2.8s backwards; }
+        .flower--4 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 2.6s backwards; }
+        .flower--4 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 2.4s backwards; }
+        .flower--4 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 2.2s backwards; }
+        .flower--5 { left: 75%; z-index: -7; transform: rotate(-25deg); animation: moving-flower-5 4.5s linear infinite; }
+        .flower--5 .flower__line { height: 93vmin; animation-delay: 1.9s; }
+        .flower--5 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 2.7s backwards; }
+        .flower--5 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 2.5s backwards; }
+        .flower--5 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 2.3s backwards; }
+        .flower--5 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 2.1s backwards; }
+        .flower--6 { left: -40%; z-index: -8; transform: rotate(-30deg); animation: moving-flower-6 5s linear infinite; }
+        .flower--6 .flower__line { height: 80vmin; animation-delay: 2.2s; }
+        .flower--6 .flower__leafs { animation-delay: 2.3s; }
+        .flower--6 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 2.9s backwards; }
+        .flower--6 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 2.7s backwards; }
+        .flower--6 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 2.5s backwards; }
+        .flower--6 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 2.4s backwards; }
+        .flower--7 { left: 90%; z-index: -9; transform: rotate(15deg); animation: moving-flower-7 4.8s linear infinite; }
+        .flower--7 .flower__line { height: 80vmin; animation-delay: 2.5s; }
+        .flower--7 .flower__leafs { animation-delay: 2.6s; }
+        .flower--7 .flower__line__leaf--1 { animation: blooming-leaf-right var(--fl-speed) 3.2s backwards; }
+        .flower--7 .flower__line__leaf--2 { animation: blooming-leaf-right var(--fl-speed) 3.0s backwards; }
+        .flower--7 .flower__line__leaf--3 { animation: blooming-leaf-left var(--fl-speed) 2.8s backwards; }
+        .flower--7 .flower__line__leaf--4 { animation: blooming-leaf-left var(--fl-speed) 2.7s backwards; }
+        .flower__leafs { position: relative; animation: blooming-flower 2s backwards; }
+        .flower__leafs--1 { animation-delay: 1.1s; }
+        .flower__leafs--2 { animation-delay: 1.4s; }
+        .flower__leafs--3 { animation-delay: 1.7s; }
+        .flower__leafs--4 { animation-delay: 2.0s; }
+        .flower__leafs--5 { animation-delay: 2.0s; }
+        .flower__leafs::after { content: ""; position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); width: 8vmin; height: 8vmin; background-color: #6bf0ff; filter: blur(10vmin); }
+        .flower__leaf {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 8vmin; 
+            height: 16vmin; 
+            background: linear-gradient(to top, #fff176, #ffd700, #ffeb3b);
+            clip-path: ellipse(50% 100% at 50% 100%); /* forma alargada y puntiaguda */
+            transform-origin: bottom center;
+            opacity: 0.95;
+            box-shadow: 0 0 1vmin rgba(255, 215, 0, 0.5);
+            z-index: 2;
+            transform: translate(-50%, -10%) rotate(0deg) scale(1, 1.4);
+        }
+        .flower__white-circle {
+            position: absolute; 
+            left: -1.5vmin; 
+            top: -8vmin; 
+            width: 5vmin; 
+            height: 10vmin; 
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+
+        /* Para las sombras de pétalos */
+        .petal-shadow {
+            position: absolute;
+            width: 1vmin;
+            height: 8vmin;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.15), transparent);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: bottom center;
+        }
+
+        .petal-shadow:nth-child(1) {
+            transform: translateY(6vmin) rotate(0deg);
+        }
+        
+        .petal-shadow:nth-child(2) {
+            transform: translateY(-20vmin) rotate(240deg) translateX(-15vmin);
+        }
+        
+        .petal-shadow:nth-child(3) {
+            transform: translateY(-21vmin) rotate(478deg) translateX(16vmin);
+        }
+
+        /* Estambre (filamento + antera) */
+        .stamen {
+            position: absolute;
+            width: 0.3vmin;
+            height: 4vmin;
+            background: #f9e79f; /* filamento amarillo claro */
+            transform-origin: bottom center;
+        }
+
+        /* Antera */
+        .stamen::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 1vmin;
+            height: 0.8vmin;
+            background: #f57f17; /* antera naranja/oscura */
+            border-radius: 0.4vmin;
+            transform: translateX(-50%);
+        }
+
+        /* Rotación de los 5 estambres alrededor del centro */
+        .stamen:nth-child(4) { transform: rotate(0deg) translateY(-2vmin); }
+        .stamen:nth-child(5) { transform: rotate(72deg) translateY(-2vmin); }
+        .stamen:nth-child(6) { transform: rotate(144deg) translateY(-2vmin); }
+        .stamen:nth-child(7) { transform: rotate(216deg) translateY(-2vmin); }
+        .stamen:nth-child(8) { transform: rotate(288deg) translateY(-2vmin); }
+
+        .flower__line {
+            height: 55vmin; width: 2vmin;
+            background-image: linear-gradient(to left, rgb(0, 0, 0, 0.3), transparent, rgba(255, 255, 255, 0.2)),
+                              linear-gradient(to top, transparent 10%, var(--stem-gradient-1), var(--stem-gradient-2), var(--stem-gradient-3));
+            box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.7); animation: grow-flower-tree 4s backwards;
+        }
+        .flower__line__leaf {
+            --w: 8vmin; --h: calc(var(--w) + 3vmin); position: absolute; top: 20%; left: 90%; width: var(--w); height: var(--h);
+            border-top-right-radius: var(--h); border-bottom-left-radius: var(--h);
+            background-image: linear-gradient(to top, var(--leaf-gradient-1), var(--leaf-gradient-2), var(--leaf-gradient-3));
+            box-shadow: inset 0 0 1vmin rgba(0, 0, 0, 0.3);
+        }
+        .flower__line__leaf--1 { transform: rotate(70deg) rotateY(30deg); }
+        .flower__line__leaf--2 { top: 45%; transform: rotate(70deg) rotateY(30deg); }
+        .flower__line__leaf--3, .flower__line__leaf--4 {
+            border-top-right-radius: 0; border-bottom-left-radius: 0; border-top-left-radius: var(--h);
+            border-bottom-right-radius: var(--h); left: -460%; top: 12%; transform: rotate(-70deg) rotateY(30deg);
+        }
+        .flower__line__leaf--4 { top: 40%; }
+        .flower__light {
+            position: absolute; bottom: 0vmin; width: 0.8vmin; height: 0.8vmin;
+            background-color: var(--light-seeds-1); border-radius: 50%; filter: blur(0.1vmin);
+            animation: sunflower-seeds 6s linear infinite backwards; box-shadow: 0 0 1vmin var(--light-seeds-shadow);
+        }
+        .flower__light:nth-child(odd) { background-color: var(--light-seeds-2); }
+        .flower__light--1 { left: -2vmin; animation-delay: 1s; } .flower__light--2 { left: 3vmin; animation-delay: 0.5s; }
+        .flower__light--3 { left: -6vmin; animation-delay: 0.3s; } .flower__light--4 { left: 6vmin; animation-delay: 0.9s; }
+        .flower__light--5 { left: -1vmin; animation-delay: 1.5s; } .flower__light--6 { left: -4vmin; animation-delay: 3s; }
+        .flower__light--7 { left: 3vmin; animation-delay: 2s; } .flower__light--8 { left: -6vmin; animation-delay: 3.5s; }
+
+        .flower__grass {
+            --c: var(--grass-color); 
+            --line-w: 2.5vmin;
+            position: absolute; 
+            bottom: 10vmin;
+            left: 0;
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-end; 
+            z-index: 20;
+            transform-origin: bottom center; 
+            transform: rotate(-48deg) rotateY(40deg);
+            will-change: transform;
+        }
+
+        .flower__grass--1 { animation: moving-grass 2s linear infinite; }
+        .flower__grass--2 { transform: scale(0.9) rotate(75deg) rotateX(10deg) rotateY(-200deg); opacity: 0.8; z-index: 0; animation: moving-grass--2 1.5s linear infinite; }
+        .flower__grass--3 { transform: scale(1.1) rotate(-30deg) rotateY(45deg); opacity: 0.9; z-index: 15; animation: moving-grass--3 2.2s linear infinite; }
+        .flower__grass--4 { transform: scale(1.0) rotate(60deg) rotateX(15deg) rotateY(-180deg); opacity: 0.7; z-index: 5; animation: moving-grass--4 1.8s linear infinite; }
+        .flower__grass--5 { transform: scale(1.1) rotate(-60deg) rotateY(60deg); opacity: 0.85; z-index: 12; animation: moving-grass--5 2.5s linear infinite; }
+        .flower__grass--6 { transform: scale(0.95) rotate(35deg) rotateY(-45deg); opacity: 0.9; z-index: 15; animation: moving-grass--6 2.3s linear infinite; }
+        .flower__grass--7 { transform: scale(0.85) rotate(-70deg) rotateX(20deg) rotateY(170deg); opacity: 0.75; z-index: 8; animation: moving-grass--7 1.9s linear infinite; }
+        .flower__grass--8 { transform: scale(0.9) rotate(50deg) rotateY(-70deg); opacity: 0.8; z-index: 10; animation: moving-grass--8 2.1s linear infinite; }
+        .flower__grass--9 { transform: scale(1.2) rotate(20deg) rotateY(90deg); opacity: 0.6; z-index: 2; animation: moving-grass--9 1.6s linear infinite; }
+        .flower__grass--10 { transform: scale(0.8) rotate(-45deg) rotateY(-120deg); opacity: 0.65; z-index: 3; animation: moving-grass--10 2.0s linear infinite; }
+
+        .flower__grass--top { 
+            width: 10vmin; 
+            height: 14vmin; 
+            border-top-right-radius: 100%; 
+            border-right: var(--line-w) solid var(--c); 
+            transform-origin: bottom center; 
+            transform: rotate(-2deg); 
+        }
+        .flower__grass--bottom { 
+            margin-top: -2px; 
+            width: var(--line-w); 
+            height: 35vmin;
+            background-image: linear-gradient(to top, transparent, var(--c)); 
+        }
+        .flower__grass__leaf {
+            --size: 10vmin; 
+            position: absolute; 
+            width: calc(var(--size) * 2.1); 
+            height: var(--size);
+            border-top-left-radius: var(--size); 
+            border-top-right-radius: var(--size);
+            background-image: linear-gradient(to top, transparent, transparent 30%, var(--c)); 
+            z-index: 100;
+        }
+
+        .flower__grass__leaf--1 { top: -6%; left: 20%; --size: 8vmin; transform: rotate(-20deg); animation: growing-grass-ans--1 var(--speed-leaf) 2.6s backwards; }
+        .flower__grass__leaf--2 { top: -5%; left: -75%; --size: 9vmin; transform: rotate(10deg); animation: growing-grass-ans--2 var(--speed-leaf) 2.4s linear backwards; }
+        .flower__grass__leaf--3 { top: 5%; left: 40%; --size: 10vmin; transform: rotate(-18deg) rotateX(-20deg); animation: growing-grass-ans--3 var(--speed-leaf) 2.2s linear backwards; }
+        .flower__grass__leaf--4 { top: 6%; left: -95%; --size: 12vmin; transform: rotate(2deg); animation: growing-grass-ans--4 var(--speed-leaf) 2s linear backwards; }
+        .flower__grass__leaf--5 { top: 20%; left: 40%; --size: 12vmin; transform: rotate(-24deg) rotateX(-20deg); animation: growing-grass-ans--5 var(--speed-leaf) 1.8s linear backwards; }
+        .flower__grass__leaf--6 { top: 22%; left: -130%; --size: 15vmin; transform: rotate(10deg); animation: growing-grass-ans--6 var(--speed-leaf) 1.6s linear backwards; }
+        .flower__grass__leaf--7 { top: 39%; left: 50%; --size: 12vmin; transform: rotate(-10deg); animation: growing-grass-ans--7 var(--speed-leaf) 1.4s linear backwards; }
+        .flower__grass__leaf--8 { top: 40%; left: -160%; --size: 16vmin; transform: rotate(10deg); animation: growing-grass-ans--8 var(--speed-leaf) 1.2s linear backwards; }
+        
+        .flower__grass__overlay { 
+            position: absolute; 
+            top: -10%; 
+            right: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.193); 
+            filter: blur(1.5vmin); 
+            z-index: 100; 
+        }
+        .special-text{display: none;}
+
+        .grow-ans { animation: grow-ans 2s var(--d) backwards; }
+        .growing-grass { animation: growing-grass-ans 1s 2s backwards; }
+        .not-loaded * { animation-play-state: paused !important; }
+
+        @keyframes grow-ans { from { transform: scale(0); opacity: 0; } }
+        @keyframes growing-grass-ans { from { transform: scale(0); } }
+        @keyframes growing-grass-ans--1 { from { transform-origin: bottom left; transform: rotate(-20deg) scale(0); } }
+        @keyframes growing-grass-ans--2 { from { transform-origin: bottom right; transform: rotate(10deg) scale(0); } }
+        @keyframes growing-grass-ans--3 { from { transform-origin: bottom left; transform: rotate(-18deg) rotateX(-20deg) scale(0); } }
+        @keyframes growing-grass-ans--4 { from { transform-origin: bottom right; transform: rotate(2deg) scale(0); } }
+        @keyframes growing-grass-ans--5 { from { transform-origin: bottom left; transform: rotate(-24deg) rotateX(-20deg) scale(0); } }
+        @keyframes growing-grass-ans--6 { from { transform-origin: bottom right; transform: rotate(10deg) scale(0); } }
+        @keyframes growing-grass-ans--7 { from { transform-origin: bottom left; transform: rotate(-10deg) scale(0); } }
+        @keyframes growing-grass-ans--8 { from { transform-origin: bottom right; transform: rotate(10deg) scale(0); } }
+        @keyframes sunflower-seeds { from { opacity: 0; transform: translateY(0vmin) rotate(0deg); } 20% { opacity: 1; transform: translateY(-3vmin) translateX(-1vmin) rotate(45deg); } 40% { opacity: 1; transform: translateY(-8vmin) translateX(1vmin) rotate(90deg); } 60% { transform: translateY(-12vmin) translateX(-1vmin) rotate(135deg); } 80% { transform: translateY(-16vmin) translateX(2vmin) rotate(180deg); opacity: 0.5; } to { transform: translateY(-25vmin) rotate(225deg); opacity: 0; } }
+        @keyframes moving-flower-1 { from, to { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } }
+        @keyframes moving-flower-2 { from, to { transform: rotate(18deg); } 50% { transform: rotate(14deg); } }
+        @keyframes moving-flower-3 { from, to { transform: rotate(-18deg); } 50% { transform: rotate(-20deg) rotateY(-10deg); } }
+        @keyframes moving-flower-4 { from, to { transform: rotate(9deg); } 50% { transform: rotate(12deg) rotateY(9deg); } }
+        @keyframes moving-flower-5 { from, to { transform: rotate(-5deg); } 50% { transform: rotate(-8deg) rotateY(5deg); } }
+        @keyframes moving-flower-6 { from, to { transform: rotate(-20deg); } 50% { transform: rotate(-24deg) rotateY(-8deg); } }
+        @keyframes moving-flower-7 { from, to { transform: rotate(22deg); } 50% { transform: rotate(25deg) rotateY(10deg); } }
+        @keyframes blooming-leaf-right { from { transform-origin: left; transform: rotate(70deg) rotateY(30deg) scale(0); } }
+        @keyframes blooming-leaf-left { from { transform-origin: right; transform: rotate(-70deg) rotateY(30deg) scale(0); } }
+        @keyframes grow-flower-tree { from { height: 0; border-radius: 1vmin; } }
+        @keyframes blooming-flower { from { transform: scale(0); } }
+        @keyframes moving-grass { from, to { transform: rotate(-48deg) rotateY(40deg); } 50% { transform: rotate(-50deg) rotateY(40deg); } }
+        @keyframes moving-grass--2 { from, to { transform: scale(0.5) rotate(75deg) rotateX(10deg) rotateY(-200deg); } 50% { transform: scale(0.5) rotate(79deg) rotateX(10deg) rotateY(-200deg); } }
+        @keyframes moving-grass--3 { from, to { transform: scale(0.7) rotate(-30deg) rotateY(45deg); } 50% { transform: scale(0.7) rotate(-33deg) rotateY(50deg); } }
+        @keyframes moving-grass--4 { from, to { transform: scale(0.4) rotate(60deg) rotateX(15deg) rotateY(-180deg); } 50% { transform: scale(0.4) rotate(63deg) rotateX(18deg) rotateY(-175deg); } }
+        @keyframes moving-grass--5 { from, to { transform: scale(0.6) rotate(-60deg) rotateY(60deg); } 50% { transform: scale(0.6) rotate(-57deg) rotateY(65deg); } }
+        @keyframes moving-grass--6 { from, to { transform: scale(0.65) rotate(35deg) rotateY(-45deg); } 50% { transform: scale(0.65) rotate(38deg) rotateY(-40deg); } }
+        @keyframes moving-grass--7 { from, to { transform: scale(0.45) rotate(-70deg) rotateX(20deg) rotateY(170deg); } 50% { transform: scale(0.45) rotate(-67deg) rotateX(23deg) rotateY(175deg); } }
+        @keyframes moving-grass--8 { from, to { transform: scale(0.55) rotate(50deg) rotateY(-70deg); } 50% { transform: scale(0.55) rotate(53deg) rotateY(-65deg); } }
+        @keyframes moving-grass--9 { from, to { transform: scale(0.3) rotate(20deg) rotateY(90deg); } 50% { transform: scale(0.3) rotate(23deg) rotateY(95deg); } }
+        @keyframes moving-grass--10 { from, to { transform: scale(0.35) rotate(-45deg) rotateY(-120deg); } 50% { transform: scale(0.35) rotate(-42deg) rotateY(-115deg); } }
+        
+        @media (max-width: 768px) { .flowers { transform: scale(1.2); bottom: 35vmin} .love-title { font-size: 8vw; top: 15px;} .music-player { top: 150px; min-width: 240px; } }
+        @media (max-width: 480px) { .flowers { transform: scale(0.9); bottom: 35vmin} .love-title { font-size: 10vw; top: 10px; } .music-player { top: 130px; padding: 8px 12px; min-width: 240px; gap: 8px;} }
+    </style>
+</head>
+ <body class="">
+    
+    <div id="falling-flower-container"><div class="falling-flower-wrapper" style="left: 78.1133vw; animation-duration: 13.1389s;"><div class="falling-flower" style="animation-duration: 4.63932s; width: 25.4821px; height: 25.4821px; filter: blur(1.12052px); opacity: 0.852314;"></div></div><div class="falling-flower-wrapper" style="left: 67.3923vw; animation-duration: 14.7042s;"><div class="falling-flower" style="animation-duration: 3.69546s; width: 24.2326px; height: 24.2326px; filter: blur(1.03151px); opacity: 0.66755;"></div></div><div class="falling-flower-wrapper" style="left: 24.8047vw; animation-duration: 14.9922s;"><div class="falling-flower" style="animation-duration: 3.50466s; width: 32.4413px; height: 32.4413px; filter: blur(1.92961px); opacity: 0.776668;"></div></div><div class="falling-flower-wrapper" style="left: 19.6216vw; animation-duration: 12.7857s;"><div class="falling-flower" style="animation-duration: 3.73799s; width: 33.2799px; height: 33.2799px; filter: blur(0.13386px); opacity: 0.716298;"></div></div><div class="falling-flower-wrapper" style="left: 38.5269vw; animation-duration: 12.3862s;"><div class="falling-flower" style="animation-duration: 3.12184s; width: 15.2503px; height: 15.2503px; filter: blur(1.6118px); opacity: 0.67467;"></div></div><div class="falling-flower-wrapper" style="left: 43.984vw; animation-duration: 14.7223s;"><div class="falling-flower" style="animation-duration: 4.69034s; width: 10.5997px; height: 10.5997px; filter: blur(1.74381px); opacity: 0.742856;"></div></div><div class="falling-flower-wrapper" style="left: 55.6507vw; animation-duration: 11.5973s;"><div class="falling-flower" style="animation-duration: 3.70685s; width: 37.4699px; height: 37.4699px; filter: blur(1.83001px); opacity: 0.574377;"></div></div><div class="falling-flower-wrapper" style="left: 7.63315vw; animation-duration: 13.0039s;"><div class="falling-flower" style="animation-duration: 4.57426s; width: 34.1124px; height: 34.1124px; filter: blur(0.108951px); opacity: 0.9532;"></div></div><div class="falling-flower-wrapper" style="left: 3.64644vw; animation-duration: 11.4698s;"><div class="falling-flower" style="animation-duration: 4.36617s; width: 31.2074px; height: 31.2074px; filter: blur(0.200312px); opacity: 0.917631;"></div></div><div class="falling-flower-wrapper" style="left: 1.5683vw; animation-duration: 10.1304s;"><div class="falling-flower" style="animation-duration: 3.69112s; width: 29.0564px; height: 29.0564px; filter: blur(0.867654px); opacity: 0.945325;"></div></div><div class="falling-flower-wrapper" style="left: 25.284vw; animation-duration: 9.30939s;"><div class="falling-flower" style="animation-duration: 4.3623s; width: 11.8779px; height: 11.8779px; filter: blur(1.11089px); opacity: 0.816149;"></div></div><div class="falling-flower-wrapper" style="left: 17.0465vw; animation-duration: 9.72542s;"><div class="falling-flower" style="animation-duration: 4.99657s; width: 19.5855px; height: 19.5855px; filter: blur(0.0502579px); opacity: 0.946338;"></div></div><div class="falling-flower-wrapper" style="left: 22.0263vw; animation-duration: 13.758s;"><div class="falling-flower" style="animation-duration: 3.96256s; width: 37.3205px; height: 37.3205px; filter: blur(1.54499px); opacity: 0.533729;"></div></div><div class="falling-flower-wrapper" style="left: 55.8729vw; animation-duration: 12.0304s;"><div class="falling-flower" style="animation-duration: 4.09412s; width: 27.5527px; height: 27.5527px; filter: blur(1.42317px); opacity: 0.548353;"></div></div><div class="falling-flower-wrapper" style="left: 4.59646vw; animation-duration: 12.6753s;"><div class="falling-flower" style="animation-duration: 3.61063s; width: 29.9749px; height: 29.9749px; filter: blur(0.415282px); opacity: 0.867477;"></div></div><div class="falling-flower-wrapper" style="left: 12.8578vw; animation-duration: 14.8572s;"><div class="falling-flower" style="animation-duration: 4.59839s; width: 11.8738px; height: 11.8738px; filter: blur(0.194499px); opacity: 0.704974;"></div></div><div class="falling-flower-wrapper" style="left: 9.71856vw; animation-duration: 10.048s;"><div class="falling-flower" style="animation-duration: 3.85867s; width: 32.3053px; height: 32.3053px; filter: blur(1.61834px); opacity: 0.750755;"></div></div><div class="falling-flower-wrapper" style="left: 31.0743vw; animation-duration: 11.5409s;"><div class="falling-flower" style="animation-duration: 4.48193s; width: 30.5753px; height: 30.5753px; filter: blur(0.760851px); opacity: 0.966509;"></div></div><div class="falling-flower-wrapper" style="left: 8.46593vw; animation-duration: 10.0132s;"><div class="falling-flower" style="animation-duration: 4.94493s; width: 21.0731px; height: 21.0731px; filter: blur(1.40435px); opacity: 0.747457;"></div></div><div class="falling-flower-wrapper" style="left: 42.0317vw; animation-duration: 11.244s;"><div class="falling-flower" style="animation-duration: 4.12267s; width: 19.2028px; height: 19.2028px; filter: blur(1.37666px); opacity: 0.959642;"></div></div><div class="falling-flower-wrapper" style="left: 50.2771vw; animation-duration: 9.84903s;"><div class="falling-flower" style="animation-duration: 3.43415s; width: 22.7593px; height: 22.7593px; filter: blur(0.137723px); opacity: 0.932306;"></div></div><div class="falling-flower-wrapper" style="left: 18.8713vw; animation-duration: 12.2568s;"><div class="falling-flower" style="animation-duration: 4.57085s; width: 36.9593px; height: 36.9593px; filter: blur(0.850399px); opacity: 0.685836;"></div></div><div class="falling-flower-wrapper" style="left: 57.426vw; animation-duration: 11.7942s;"><div class="falling-flower" style="animation-duration: 3.37636s; width: 30.3576px; height: 30.3576px; filter: blur(1.39418px); opacity: 0.625101;"></div></div><div class="falling-flower-wrapper" style="left: 10.92vw; animation-duration: 10.5412s;"><div class="falling-flower" style="animation-duration: 4.82986s; width: 21.0244px; height: 21.0244px; filter: blur(0.547364px); opacity: 0.612279;"></div></div><div class="falling-flower-wrapper" style="left: 83.1755vw; animation-duration: 14.1501s;"><div class="falling-flower" style="animation-duration: 4.58287s; width: 37.855px; height: 37.855px; filter: blur(1.05714px); opacity: 0.750703;"></div></div><div class="falling-flower-wrapper" style="left: 83.3841vw; animation-duration: 12.6013s;"><div class="falling-flower" style="animation-duration: 3.80552s; width: 15.4936px; height: 15.4936px; filter: blur(0.451835px); opacity: 0.595919;"></div></div><div class="falling-flower-wrapper" style="left: 75.0306vw; animation-duration: 10.1412s;"><div class="falling-flower" style="animation-duration: 3.87441s; width: 38.1213px; height: 38.1213px; filter: blur(1.39124px); opacity: 0.598261;"></div></div><div class="falling-flower-wrapper" style="left: 55.8294vw; animation-duration: 13.9863s;"><div class="falling-flower" style="animation-duration: 4.56516s; width: 33.6112px; height: 33.6112px; filter: blur(1.01337px); opacity: 0.633427;"></div></div><div class="falling-flower-wrapper" style="left: 69.4753vw; animation-duration: 7.22452s;"><div class="falling-flower" style="animation-duration: 4.91287s; width: 12.402px; height: 12.402px; filter: blur(1.43891px); opacity: 0.714744;"></div></div><div class="falling-flower-wrapper" style="left: 85.2042vw; animation-duration: 13.984s;"><div class="falling-flower" style="animation-duration: 3.14482s; width: 11.7706px; height: 11.7706px; filter: blur(1.6173px); opacity: 0.655777;"></div></div><div class="falling-flower-wrapper" style="left: 56.0192vw; animation-duration: 10.7987s;"><div class="falling-flower" style="animation-duration: 3.19422s; width: 21.1562px; height: 21.1562px; filter: blur(1.61816px); opacity: 0.990341;"></div></div><div class="falling-flower-wrapper" style="left: 92.7112vw; animation-duration: 9.53818s;"><div class="falling-flower" style="animation-duration: 3.25157s; width: 20.2199px; height: 20.2199px; filter: blur(1.99875px); opacity: 0.89315;"></div></div><div class="falling-flower-wrapper" style="left: 72.5171vw; animation-duration: 9.77957s;"><div class="falling-flower" style="animation-duration: 4.68739s; width: 38.9748px; height: 38.9748px; filter: blur(1.23044px); opacity: 0.547077;"></div></div><div class="falling-flower-wrapper" style="left: 87.4544vw; animation-duration: 9.35584s;"><div class="falling-flower" style="animation-duration: 3.83141s; width: 30.4537px; height: 30.4537px; filter: blur(1.9255px); opacity: 0.971147;"></div></div><div class="falling-flower-wrapper" style="left: 36.9735vw; animation-duration: 14.2668s;"><div class="falling-flower" style="animation-duration: 3.24995s; width: 12.3108px; height: 12.3108px; filter: blur(1.55575px); opacity: 0.864386;"></div></div><div class="falling-flower-wrapper" style="left: 41.7533vw; animation-duration: 8.13979s;"><div class="falling-flower" style="animation-duration: 4.99239s; width: 11.0834px; height: 11.0834px; filter: blur(0.220937px); opacity: 0.993427;"></div></div><div class="falling-flower-wrapper" style="left: 68.0725vw; animation-duration: 9.47004s;"><div class="falling-flower" style="animation-duration: 4.63865s; width: 10.9388px; height: 10.9388px; filter: blur(0.965759px); opacity: 0.786042;"></div></div><div class="falling-flower-wrapper" style="left: 24.0398vw; animation-duration: 14.477s;"><div class="falling-flower" style="animation-duration: 3.88495s; width: 21.9768px; height: 21.9768px; filter: blur(1.46915px); opacity: 0.747257;"></div></div><div class="falling-flower-wrapper" style="left: 49.9657vw; animation-duration: 12.6591s;"><div class="falling-flower" style="animation-duration: 4.15125s; width: 18.0027px; height: 18.0027px; filter: blur(1.66878px); opacity: 0.753961;"></div></div><div class="falling-flower-wrapper" style="left: 57.5288vw; animation-duration: 9.22403s;"><div class="falling-flower" style="animation-duration: 3.10741s; width: 10.2644px; height: 10.2644px; filter: blur(1.69582px); opacity: 0.945602;"></div></div><div class="falling-flower-wrapper" style="left: 92.2448vw; animation-duration: 14.459s;"><div class="falling-flower" style="animation-duration: 3.93353s; width: 13.455px; height: 13.455px; filter: blur(1.55008px); opacity: 0.707152;"></div></div><div class="falling-flower-wrapper" style="left: 55.2334vw; animation-duration: 12.8211s;"><div class="falling-flower" style="animation-duration: 4.65926s; width: 35.9973px; height: 35.9973px; filter: blur(1.87464px); opacity: 0.871355;"></div></div><div class="falling-flower-wrapper" style="left: 3.94707vw; animation-duration: 10.2636s;"><div class="falling-flower" style="animation-duration: 3.58886s; width: 35.9388px; height: 35.9388px; filter: blur(0.420677px); opacity: 0.987307;"></div></div><div class="falling-flower-wrapper" style="left: 13.3502vw; animation-duration: 7.41094s;"><div class="falling-flower" style="animation-duration: 4.32709s; width: 24.6066px; height: 24.6066px; filter: blur(0.64206px); opacity: 0.697666;"></div></div><div class="falling-flower-wrapper" style="left: 67.9199vw; animation-duration: 11.1594s;"><div class="falling-flower" style="animation-duration: 3.06496s; width: 30.1277px; height: 30.1277px; filter: blur(0.674951px); opacity: 0.757179;"></div></div><div class="falling-flower-wrapper" style="left: 55.1981vw; animation-duration: 11.6237s;"><div class="falling-flower" style="animation-duration: 4.52587s; width: 37.0797px; height: 37.0797px; filter: blur(1.06885px); opacity: 0.915426;"></div></div><div class="falling-flower-wrapper" style="left: 57.7401vw; animation-duration: 12.506s;"><div class="falling-flower" style="animation-duration: 3.6081s; width: 10.7648px; height: 10.7648px; filter: blur(0.677982px); opacity: 0.636686;"></div></div></div>
+    <div id="particle-container"><div class="particle" style="width: 7.16762px; height: 7.16762px; left: 682.816px; top: 175.965px; animation-delay: 5.77425s;"></div><div class="particle" style="width: 6.38995px; height: 6.38995px; left: 488.678px; top: 65.4174px; animation-delay: 5.26606s;"></div><div class="particle" style="width: 6.64174px; height: 6.64174px; left: 750.409px; top: 137.149px; animation-delay: 5.5582s;"></div><div class="particle" style="width: 6.75876px; height: 6.75876px; left: 401.058px; top: 608.253px; animation-delay: 4.54203s;"></div><div class="particle" style="width: 6.19586px; height: 6.19586px; left: 757.075px; top: 132.149px; animation-delay: 5.15817s;"></div><div class="particle" style="width: 3.8513px; height: 3.8513px; left: 1005.66px; top: 333.099px; animation-delay: 5.31768s;"></div><div class="particle" style="width: 3.45039px; height: 3.45039px; left: 197.803px; top: 401.211px; animation-delay: 5.3317s;"></div><div class="particle" style="width: 3.12408px; height: 3.12408px; left: 814.812px; top: 79.1595px; animation-delay: 4.93804s;"></div><div class="particle" style="width: 2.04346px; height: 2.04346px; left: 490.227px; top: 61.7806px; animation-delay: 5.52861s;"></div><div class="particle" style="width: 2.32984px; height: 2.32984px; left: 1219.48px; top: 236.591px; animation-delay: 5.146s;"></div><div class="particle" style="width: 3.68429px; height: 3.68429px; left: 807.851px; top: 175.265px; animation-delay: 4.40803s;"></div><div class="particle" style="width: 4.63447px; height: 4.63447px; left: 886.472px; top: 491.387px; animation-delay: 5.09661s;"></div><div class="particle" style="width: 4.07033px; height: 4.07033px; left: 672.265px; top: 176.997px; animation-delay: 5.53387s;"></div><div class="particle" style="width: 4.64103px; height: 4.64103px; left: 730.449px; top: 428.441px; animation-delay: 4.17056s;"></div><div class="particle" style="width: 7.16007px; height: 7.16007px; left: 771.301px; top: 244.541px; animation-delay: 4.84378s;"></div><div class="particle" style="width: 6.46663px; height: 6.46663px; left: 436.883px; top: 83.0047px; animation-delay: 4.11517s;"></div><div class="particle" style="width: 4.73462px; height: 4.73462px; left: 611.606px; top: 98.8872px; animation-delay: 3.80357s;"></div><div class="particle" style="width: 5.62452px; height: 5.62452px; left: 703.225px; top: 342.949px; animation-delay: 3.72782s;"></div><div class="particle" style="width: 5.35925px; height: 5.35925px; left: 1146.51px; top: 30.5651px; animation-delay: 2.45612s;"></div><div class="particle" style="width: 5.92186px; height: 5.92186px; left: 1185.48px; top: 165.053px; animation-delay: 4.07708s;"></div><div class="particle" style="width: 4.07658px; height: 4.07658px; left: 960.638px; top: 33.2735px; animation-delay: 4.62652s;"></div><div class="particle" style="width: 4.0435px; height: 4.0435px; left: 656.261px; top: 209.576px; animation-delay: 2.49458s;"></div><div class="particle" style="width: 5.93583px; height: 5.93583px; left: 530.192px; top: 178.317px; animation-delay: 2.50929s;"></div><div class="particle" style="width: 6.99533px; height: 6.99533px; left: 895.499px; top: 165.122px; animation-delay: 5.48022s;"></div><div class="particle" style="width: 7.5219px; height: 7.5219px; left: 555.396px; top: 288.263px; animation-delay: 2.42465s;"></div><div class="particle" style="width: 4.38398px; height: 4.38398px; left: 973.2px; top: 364.405px; animation-delay: 2.66871s;"></div><div class="particle" style="width: 3.31577px; height: 3.31577px; left: 590.604px; top: 82.69px; animation-delay: 3.82989s;"></div><div class="particle" style="width: 4.04317px; height: 4.04317px; left: 396.848px; top: 620.899px; animation-delay: 2.60038s;"></div><div class="particle" style="width: 3.01122px; height: 3.01122px; left: 499.257px; top: 109.996px; animation-delay: 5.49151s;"></div><div class="particle" style="width: 5.54569px; height: 5.54569px; left: 778.666px; top: 577.844px; animation-delay: 2.94074s;"></div><div class="particle" style="width: 6.49131px; height: 6.49131px; left: 686.364px; top: 77.0413px; animation-delay: 5.42612s;"></div><div class="particle" style="width: 5.56963px; height: 5.56963px; left: 695.69px; top: 191.252px; animation-delay: 4.20347s;"></div><div class="particle" style="width: 2.19985px; height: 2.19985px; left: 626.089px; top: 250.396px; animation-delay: 2.19911s;"></div><div class="particle" style="width: 6.29348px; height: 6.29348px; left: 642.04px; top: 217.405px; animation-delay: 1.37252s;"></div><div class="particle" style="width: 4.93886px; height: 4.93886px; left: 478.885px; top: 143.658px; animation-delay: 4.88037s;"></div><div class="particle" style="width: 6.70147px; height: 6.70147px; left: 701.891px; top: 23.2496px; animation-delay: 4.65461s;"></div><div class="particle" style="width: 6.57486px; height: 6.57486px; left: 672.591px; top: 246.424px; animation-delay: 3.02791s;"></div><div class="particle" style="width: 6.88144px; height: 6.88144px; left: 225.897px; top: 6.04935px; animation-delay: 2.76062s;"></div><div class="particle" style="width: 7.18724px; height: 7.18724px; left: 812.29px; top: 227.76px; animation-delay: 3.3711s;"></div><div class="particle" style="width: 7.82063px; height: 7.82063px; left: 1137.28px; top: 50.4378px; animation-delay: 4.98718s;"></div><div class="particle" style="width: 6.1109px; height: 6.1109px; left: 460.249px; top: 66.7162px; animation-delay: 1.71675s;"></div><div class="particle" style="width: 6.61345px; height: 6.61345px; left: 914.306px; top: 511.2px; animation-delay: 1.40482s;"></div><div class="particle" style="width: 4.94029px; height: 4.94029px; left: 587.732px; top: 308.588px; animation-delay: 3.18864s;"></div><div class="particle" style="width: 5.35723px; height: 5.35723px; left: 1076.92px; top: 308.225px; animation-delay: 4.14737s;"></div><div class="particle" style="width: 5.95272px; height: 5.95272px; left: 644.347px; top: 148.805px; animation-delay: 2.92864s;"></div><div class="particle" style="width: 7.43577px; height: 7.43577px; left: 339.566px; top: 202.464px; animation-delay: 3.75781s;"></div><div class="particle" style="width: 3.15269px; height: 3.15269px; left: 444.717px; top: 358.719px; animation-delay: 0.955635s;"></div><div class="particle" style="width: 3.33199px; height: 3.33199px; left: 465.981px; top: 235.374px; animation-delay: 5.00915s;"></div><div class="particle" style="width: 7.28231px; height: 7.28231px; left: 748.669px; top: 219.779px; animation-delay: 4.81835s;"></div><div class="particle" style="width: 5.12158px; height: 5.12158px; left: 1222.34px; top: 180.159px; animation-delay: 4.40606s;"></div><div class="particle" style="width: 5.25972px; height: 5.25972px; left: 591.98px; top: 224.59px; animation-delay: 3.22296s;"></div><div class="particle" style="width: 4.85957px; height: 4.85957px; left: 848.157px; top: 621.53px; animation-delay: 2.27693s;"></div><div class="particle" style="width: 3.50569px; height: 3.50569px; left: 767.931px; top: 62.0946px; animation-delay: 4.84371s;"></div><div class="particle" style="width: 7.08137px; height: 7.08137px; left: 640.918px; top: 142.254px; animation-delay: 3.10601s;"></div><div class="particle" style="width: 5.6444px; height: 5.6444px; left: 640.309px; top: 264.624px; animation-delay: 2.85107s;"></div><div class="particle" style="width: 5.06889px; height: 5.06889px; left: 1269.28px; top: 350.733px; animation-delay: 4.51522s;"></div><div class="particle" style="width: 4.53921px; height: 4.53921px; left: 763.07px; top: 211.01px; animation-delay: 5.12887s;"></div><div class="particle" style="width: 7.34721px; height: 7.34721px; left: 621.956px; top: 189.202px; animation-delay: 1.52736s;"></div><div class="particle" style="width: 7.2212px; height: 7.2212px; left: 785.005px; top: 65.1386px; animation-delay: 4.56796s;"></div><div class="particle" style="width: 7.51407px; height: 7.51407px; left: 166.436px; top: 442.853px; animation-delay: 2.52758s;"></div><div class="particle" style="width: 4.67211px; height: 4.67211px; left: 749.507px; top: 132.903px; animation-delay: 2.70589s;"></div><div class="particle" style="width: 6.70035px; height: 6.70035px; left: 752.652px; top: 535.159px; animation-delay: 2.18973s;"></div><div class="particle" style="width: 3.67572px; height: 3.67572px; left: 472.589px; top: 270.396px; animation-delay: 4.73799s;"></div><div class="particle" style="width: 7.72853px; height: 7.72853px; left: 458.883px; top: 527.314px; animation-delay: 1.41967s;"></div><div class="particle" style="width: 6.91211px; height: 6.91211px; left: 795.593px; top: 268.067px; animation-delay: 5.11527s;"></div><div class="particle" style="width: 6.31377px; height: 6.31377px; left: 976.791px; top: 104.799px; animation-delay: 1.22098s;"></div><div class="particle" style="width: 2.83494px; height: 2.83494px; left: 556.723px; top: 329.671px; animation-delay: 1.94008s;"></div><div class="particle" style="width: 4.03146px; height: 4.03146px; left: 1238.66px; top: 8.22156px; animation-delay: 5.82934s;"></div><div class="particle" style="width: 3.398px; height: 3.398px; left: 679.974px; top: 162.3px; animation-delay: 1.74692s;"></div><div class="particle" style="width: 4.75204px; height: 4.75204px; left: 864.61px; top: 360.931px; animation-delay: 3.46626s;"></div><div class="particle" style="width: 6.038px; height: 6.038px; left: 486.787px; top: 267.514px; animation-delay: 2.40655s;"></div><div class="particle" style="width: 2.89959px; height: 2.89959px; left: 387.55px; top: 434.516px; animation-delay: 5.77324s;"></div><div class="particle" style="width: 5.97558px; height: 5.97558px; left: 504.604px; top: 168.319px; animation-delay: 4.04272s;"></div><div class="particle" style="width: 4.44488px; height: 4.44488px; left: 1005.76px; top: 55.2025px; animation-delay: 1.45515s;"></div><div class="particle" style="width: 7.94888px; height: 7.94888px; left: 773.197px; top: 253.673px; animation-delay: 1.83296s;"></div><div class="particle" style="width: 4.48839px; height: 4.48839px; left: 692.497px; top: 335.514px; animation-delay: 2.29312s;"></div><div class="particle" style="width: 7.67005px; height: 7.67005px; left: 630.659px; top: 117.782px; animation-delay: 2.98591s;"></div><div class="particle" style="width: 5.14628px; height: 5.14628px; left: 294.106px; top: 332.591px; animation-delay: 4.90229s;"></div><div class="particle" style="width: 4.81551px; height: 4.81551px; left: 552.919px; top: 330.823px; animation-delay: 0.385746s;"></div><div class="particle" style="width: 7.40162px; height: 7.40162px; left: 767.58px; top: 12.2851px; animation-delay: 1.00213s;"></div><div class="particle" style="width: 7.57827px; height: 7.57827px; left: 454.7px; top: 197.753px; animation-delay: 1.66658s;"></div><div class="particle" style="width: 2.17793px; height: 2.17793px; left: 312.727px; top: 432.645px; animation-delay: 5.86918s;"></div><div class="particle" style="width: 7.16089px; height: 7.16089px; left: 515.125px; top: 189.976px; animation-delay: 3.24553s;"></div><div class="particle" style="width: 5.50108px; height: 5.50108px; left: 947.481px; top: 354.384px; animation-delay: 4.50077s;"></div><div class="particle" style="width: 5.97977px; height: 5.97977px; left: 564.616px; top: 137.242px; animation-delay: 5.58637s;"></div><div class="particle" style="width: 5.42298px; height: 5.42298px; left: 1094.77px; top: 597.439px; animation-delay: 2.35487s;"></div><div class="particle" style="width: 3.91656px; height: 3.91656px; left: 619.03px; top: 120.448px; animation-delay: 2.40085s;"></div><div class="particle" style="width: 6.89945px; height: 6.89945px; left: 581.802px; top: 354.073px; animation-delay: 0.680062s;"></div><div class="particle" style="width: 4.89859px; height: 4.89859px; left: 783.496px; top: 290.628px; animation-delay: 5.99059s;"></div><div class="particle" style="width: 5.8634px; height: 5.8634px; left: 221.402px; top: 308.808px; animation-delay: 0.9499s;"></div><div class="particle" style="width: 3.53162px; height: 3.53162px; left: 614.4px; top: 338.295px; animation-delay: 2.29346s;"></div><div class="particle" style="width: 3.99642px; height: 3.99642px; left: 883.558px; top: 464.401px; animation-delay: 4.78812s;"></div><div class="particle" style="width: 6.74242px; height: 6.74242px; left: 799.136px; top: 121.448px; animation-delay: 1.82057s;"></div><div class="particle" style="width: 5.42735px; height: 5.42735px; left: 107.06px; top: 607.38px; animation-delay: 3.40426s;"></div><div class="particle" style="width: 5.41261px; height: 5.41261px; left: 460.436px; top: 305.917px; animation-delay: 3.91189s;"></div><div class="particle" style="width: 5.64663px; height: 5.64663px; left: 1244.69px; top: 345.88px; animation-delay: 4.02222s;"></div><div class="particle" style="width: 6.76007px; height: 6.76007px; left: 799.072px; top: 336.295px; animation-delay: 2.46872s;"></div><div class="particle" style="width: 7.58126px; height: 7.58126px; left: 938.025px; top: 170.99px; animation-delay: 3.30988s;"></div><div class="particle" style="width: 4.78907px; height: 4.78907px; left: 455.254px; top: 331.995px; animation-delay: 2.33891s;"></div><div class="particle" style="width: 2.96284px; height: 2.96284px; left: 49.6427px; top: 244.023px; animation-delay: 1.4361s;"></div><div class="particle" style="width: 2.8925px; height: 2.8925px; left: 697.388px; top: 163.821px; animation-delay: 1.26542s;"></div><div class="particle" style="width: 6.10871px; height: 6.10871px; left: 1028.29px; top: 158.755px; animation-delay: 3.12459s;"></div><div class="particle" style="width: 2.18104px; height: 2.18104px; left: 620.755px; top: 320.298px; animation-delay: 4.52698s;"></div><div class="particle" style="width: 7.30827px; height: 7.30827px; left: 1205.5px; top: 489.465px; animation-delay: 4.44165s;"></div><div class="particle" style="width: 7.13635px; height: 7.13635px; left: 632.81px; top: 257.183px; animation-delay: 4.40698s;"></div><div class="particle" style="width: 6.84564px; height: 6.84564px; left: 512.2px; top: 238.524px; animation-delay: 0.405355s;"></div><div class="particle" style="width: 4.73033px; height: 4.73033px; left: 476.146px; top: 174.661px; animation-delay: 3.77718s;"></div><div class="particle" style="width: 2.4905px; height: 2.4905px; left: 126.758px; top: 291.258px; animation-delay: 4.51924s;"></div><div class="particle" style="width: 5.63938px; height: 5.63938px; left: 782.265px; top: 181.802px; animation-delay: 0.810727s;"></div><div class="particle" style="width: 7.84428px; height: 7.84428px; left: 393.575px; top: 100.44px; animation-delay: 4.94948s;"></div><div class="particle" style="width: 2.95352px; height: 2.95352px; left: 609.569px; top: 356.183px; animation-delay: 3.70993s;"></div><div class="particle" style="width: 3.91681px; height: 3.91681px; left: 744.992px; top: 143.162px; animation-delay: 5.32075s;"></div><div class="particle" style="width: 6.6029px; height: 6.6029px; left: 526.074px; top: 353.507px; animation-delay: 1.40218s;"></div><div class="particle" style="width: 2.86861px; height: 2.86861px; left: 11.3942px; top: 296.89px; animation-delay: 4.94116s;"></div><div class="particle" style="width: 5.52969px; height: 5.52969px; left: 746.309px; top: 337.47px; animation-delay: 5.44053s;"></div><div class="particle" style="width: 5.58963px; height: 5.58963px; left: 449.309px; top: 25.5039px; animation-delay: 4.38566s;"></div><div class="particle" style="width: 4.86178px; height: 4.86178px; left: 491.958px; top: 317.562px; animation-delay: 3.07769s;"></div><div class="particle" style="width: 4.58088px; height: 4.58088px; left: 448.494px; top: 567.623px; animation-delay: 2.55257s;"></div><div class="particle" style="width: 6.26726px; height: 6.26726px; left: 570.958px; top: 297.168px; animation-delay: 3.88666s;"></div><div class="particle" style="width: 4.20385px; height: 4.20385px; left: 53.3518px; top: 173.163px; animation-delay: 5.83425s;"></div><div class="particle" style="width: 6.40223px; height: 6.40223px; left: 461.331px; top: 328.909px; animation-delay: 0.481319s;"></div><div class="particle" style="width: 4.41092px; height: 4.41092px; left: 651.31px; top: 630.291px; animation-delay: 0.713498s;"></div><div class="particle" style="width: 4.189px; height: 4.189px; left: 717.059px; top: 116.385px; animation-delay: 1.44378s;"></div><div class="particle" style="width: 2.84007px; height: 2.84007px; left: 999.399px; top: 422.154px; animation-delay: 1.02311s;"></div><div class="particle" style="width: 6.80709px; height: 6.80709px; left: 560.563px; top: 293.819px; animation-delay: 4.03226s;"></div><div class="particle" style="width: 7.92509px; height: 7.92509px; left: 572.763px; top: 346.342px; animation-delay: 1.31575s;"></div><div class="particle" style="width: 5.63953px; height: 5.63953px; left: 677.633px; top: 235.303px; animation-delay: 4.5282s;"></div><div class="particle" style="width: 7.2573px; height: 7.2573px; left: 276.83px; top: 419.919px; animation-delay: 0.622733s;"></div><div class="particle" style="width: 4.09383px; height: 4.09383px; left: 710.583px; top: 331.637px; animation-delay: 1.33332s;"></div><div class="particle" style="width: 2.68895px; height: 2.68895px; left: 364.567px; top: 114.303px; animation-delay: 2.24081s;"></div><div class="particle" style="width: 5.76166px; height: 5.76166px; left: 696.266px; top: 96.3061px; animation-delay: 5.91108s;"></div><div class="particle" style="width: 4.95743px; height: 4.95743px; left: 945.144px; top: 598.18px; animation-delay: 1.69149s;"></div><div class="particle" style="width: 3.82639px; height: 3.82639px; left: 466.325px; top: 289.752px; animation-delay: 1.08053s;"></div><div class="particle" style="width: 7.9349px; height: 7.9349px; left: 1081.32px; top: 168.412px; animation-delay: 1.6551s;"></div><div class="particle" style="width: 6.89564px; height: 6.89564px; left: 562.402px; top: 286.081px; animation-delay: 2.23583s;"></div><div class="particle" style="width: 4.41107px; height: 4.41107px; left: 928.709px; top: 160.744px; animation-delay: 0.240203s;"></div><div class="particle" style="width: 4.93182px; height: 4.93182px; left: 479.687px; top: 338.844px; animation-delay: 4.16221s;"></div><div class="particle" style="width: 6.88425px; height: 6.88425px; left: 1139.61px; top: 460.81px; animation-delay: 0.591377s;"></div><div class="particle" style="width: 4.00939px; height: 4.00939px; left: 800.915px; top: 191.175px; animation-delay: 1.00022s;"></div><div class="particle" style="width: 5.69187px; height: 5.69187px; left: 589.608px; top: 150.243px; animation-delay: 3.4227s;"></div><div class="particle" style="width: 5.39555px; height: 5.39555px; left: 642.633px; top: 295.615px; animation-delay: 3.90231s;"></div><div class="particle" style="width: 5.12849px; height: 5.12849px; left: 217.483px; top: 399.255px; animation-delay: 3.61974s;"></div><div class="particle" style="width: 2.47169px; height: 2.47169px; left: 781.927px; top: 141.737px; animation-delay: 5.03944s;"></div><div class="particle" style="width: 5.93529px; height: 5.93529px; left: 80.645px; top: 517.573px; animation-delay: 3.79431s;"></div><div class="particle" style="width: 6.58133px; height: 6.58133px; left: 743.529px; top: 155.89px; animation-delay: 3.44732s;"></div><div class="particle" style="width: 4.27341px; height: 4.27341px; left: 1107.89px; top: 344.828px; animation-delay: 0.313449s;"></div><div class="particle" style="width: 5.09903px; height: 5.09903px; left: 481.197px; top: 125.233px; animation-delay: 3.76244s;"></div><div class="particle" style="width: 7.30946px; height: 7.30946px; left: 922.288px; top: 414.599px; animation-delay: 5.56918s;"></div><div class="particle" style="width: 4.26421px; height: 4.26421px; left: 666.871px; top: 213.543px; animation-delay: 5.29271s;"></div><div class="particle" style="width: 5.45797px; height: 5.45797px; left: 700.198px; top: 626.795px; animation-delay: 0.280733s;"></div><div class="particle" style="width: 7.31956px; height: 7.31956px; left: 577.391px; top: 180.139px; animation-delay: 3.91113s;"></div><div class="particle" style="width: 7.60567px; height: 7.60567px; left: 227.322px; top: 268.244px; animation-delay: 3.94914s;"></div><div class="particle" style="width: 6.79406px; height: 6.79406px; left: 636.153px; top: 357.245px; animation-delay: 0.77812s;"></div><div class="particle" style="width: 3.56811px; height: 3.56811px; left: 1147.7px; top: 389.257px; animation-delay: 1.67039s;"></div><div class="particle" style="width: 6.33192px; height: 6.33192px; left: 815.269px; top: 77.7764px; animation-delay: 4.85841s;"></div><div class="particle" style="width: 2.97057px; height: 2.97057px; left: 291.492px; top: 164.38px; animation-delay: 2.52205s;"></div><div class="particle" style="width: 7.42444px; height: 7.42444px; left: 221.544px; top: 309.674px; animation-delay: 4.4984s;"></div></div>
+    <h1 class="love-title">Lirios para el lirio 🌸</h1>
+
+    <div class="music-player" id="musicPlayer">
+      <button class="play-pause-btn" id="playPauseBtn">
+        <svg id="playIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"></path></svg>
+        <svg id="pauseIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+      </button>
+      <div class="progress-container">
+        <div class="song-info">Nobody but you ❤️</div>
+        <div class="song-info">Sonder</div>
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">0:00</span>
+          <span id="totalTime">1:36</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flowers">
+        
+        <div class="flower flower--1">
+            <div class="flower__leafs flower__leafs--1">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div>
+                <div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div>
+                <div class="flower__light flower__light--3"></div>
+                <div class="flower__light flower__light--4"></div>
+                <div class="flower__light flower__light--5"></div>
+                <div class="flower__light flower__light--6"></div>
+                <div class="flower__light flower__light--7"></div>
+                <div class="flower__light flower__light--8"></div>
+            </div>
+            <div class="flower__line">
+                <div class="flower__line__leaf flower__line__leaf--1"></div>
+                <div class="flower__line__leaf flower__line__leaf--2"></div>
+                <div class="flower__line__leaf flower__line__leaf--3"></div>
+                <div class="flower__line__leaf flower__line__leaf--4"></div>
+            </div>
+        </div>
+
+        <div class="flower flower--2">
+            <div class="flower__leafs flower__leafs--2">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div>
+                <div class="flower__light flower__light--1"></div><div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div><div class="flower__light flower__light--5"></div><div class="flower__light flower__light--6"></div><div class="flower__light flower__light--7"></div><div class="flower__light flower__light--8"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        
+        <div class="flower flower--3">
+            <div class="flower__leafs flower__leafs--3">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div><div class="flower__light flower__light--1"></div><div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div><div class="flower__light flower__light--5"></div><div class="flower__light flower__light--6"></div><div class="flower__light flower__light--7"></div><div class="flower__light flower__light--8"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        
+        <div class="flower flower--4">
+            <div class="flower__leafs flower__leafs--4">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div><div class="flower__light flower__light--1"></div><div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div><div class="flower__light flower__light--5"></div><div class="flower__light flower__light--6"></div><div class="flower__light flower__light--7"></div><div class="flower__light flower__light--8"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        
+        <div class="flower flower--5">
+            <div class="flower__leafs flower__leafs--5">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div><div class="flower__light flower__light--1"></div><div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div><div class="flower__light flower__light--5"></div><div class="flower__light flower__light--6"></div><div class="flower__light flower__light--7"></div><div class="flower__light flower__light--8"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        
+        <div class="flower flower--6">
+            <div class="flower__leafs">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div><div class="flower__light flower__light--1"></div>
+                <div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        
+        <div class="flower flower--7">
+            <div class="flower__leafs">
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(60deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(120deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(180deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(240deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(300deg);"></div>
+                <div class="flower__leaf" style="transform: translate(-50%, -10%) rotate(360deg);"></div>
+                <div class="flower__white-circle">
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    <div class="petal-shadow"></div>
+                    
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                </div><div class="flower__light flower__light--1"></div><div class="flower__light flower__light--2"></div><div class="flower__light flower__light--3"></div><div class="flower__light flower__light--4"></div></div><div class="flower__line"><div class="flower__line__leaf flower__line__leaf--1"></div><div class="flower__line__leaf flower__line__leaf--2"></div><div class="flower__line__leaf flower__line__leaf--3"></div><div class="flower__line__leaf flower__line__leaf--4"></div></div></div>
+        <div class="grow-ans" style="--d:1.2s"><div class="flower__g-long"><div class="flower__g-long__top"></div><div class="flower__g-long__bottom"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--1"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__leaf flower__grass__leaf--6"></div><div class="flower__grass__leaf flower__grass__leaf--7"></div><div class="flower__grass__leaf flower__grass__leaf--8"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--2"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__leaf flower__grass__leaf--6"></div><div class="flower__grass__leaf flower__grass__leaf--7"></div><div class="flower__grass__leaf flower__grass__leaf--8"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--3"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__leaf flower__grass__leaf--6"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--4"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--5"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--6"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__leaf flower__grass__leaf--6"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--7"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--8"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__leaf flower__grass__leaf--4"></div><div class="flower__grass__leaf flower__grass__leaf--5"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--9"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__overlay"></div></div></div>
+        <div class="growing-grass"><div class="flower__grass flower__grass--10"><div class="flower__grass--top"></div><div class="flower__grass--bottom"></div><div class="flower__grass__leaf flower__grass__leaf--1"></div><div class="flower__grass__leaf flower__grass__leaf--2"></div><div class="flower__grass__leaf flower__grass__leaf--3"></div><div class="flower__grass__overlay"></div></div></div>
+    </div>
+
+    <audio id="audioPlayer" loop="">
+        <source src="assets/sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            const progressFill = document.getElementById('progressFill');
+            const currentTimeEl = document.getElementById('currentTime');
+            const totalTimeEl = document.getElementById('totalTime');
+            
+            // Variables de estado
+            let isPlaying = false;
+            
+            // Configurar el audio
+            audioPlayer.volume = 0.7;
+            
+            // Cuando los metadatos del audio estén cargados
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                const duration = audioPlayer.duration;
+                const minutes = Math.floor(duration / 60);
+                const seconds = Math.floor(duration % 60);
+                totalTimeEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            });
+            
+            // Actualizar la barra de progreso
+            audioPlayer.addEventListener('timeupdate', function() {
+                const currentTime = audioPlayer.currentTime;
+                const duration = audioPlayer.duration;
+                const progressPercent = (currentTime / duration) * 100;
+                
+                progressFill.style.width = `${progressPercent}%`;
+                
+                // Actualizar el tiempo actual
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = Math.floor(currentTime % 60);
+                currentTimeEl.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            });
+            
+            // Cuando termina la reproducción
+            audioPlayer.addEventListener('ended', function() {
+                isPlaying = false;
+                togglePlayPauseIcon();
+                audioPlayer.currentTime = 0;
+            });
+            
+            // Función para alternar entre play y pause
+            function togglePlayPause() {
+                if (isPlaying) {
+                    audioPlayer.pause();
+                } else {
+                    audioPlayer.play().catch(error => {
+                        console.error("Error al reproducir audio:", error);
+                        // Mostrar mensaje de error si es necesario
+                    });
+                }
+                isPlaying = !isPlaying;
+                togglePlayPauseIcon();
+            }
+            
+            // Cambiar icono de play/pausa
+            function togglePlayPauseIcon() {
+                if (isPlaying) {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                } else {
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+            }
+            
+            // Click en el botón de play/pausa
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            
+            // Click en la barra de progreso para buscar
+            progressBar.addEventListener('click', function(e) {
+                const width = this.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audioPlayer.duration;
+                audioPlayer.currentTime = (clickX / width) * duration;
+            });
+            
+            // Generar flores y partículas (código existente)
+            generateFallingFlowers();
+            generateParticles();
+            
+            function generateFallingFlowers() {
+                const container = document.getElementById('falling-flower-container');
+                const flowerCount = 50;
+                
+                for (let i = 0; i < flowerCount; i++) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'falling-flower-wrapper';
+                    wrapper.style.left = `${Math.random() * 100}vw`;
+                    wrapper.style.animationDuration = `${10 + Math.random() * 10}s`;
+                    
+                    const flower = document.createElement('div');
+                    flower.className = 'falling-flower';
+                    flower.style.animationDuration = `${3 + Math.random() * 3}s`;
+                    flower.style.width = `${10 + Math.random() * 30}px`;
+                    flower.style.height = flower.style.width;
+                    flower.style.filter = `blur(${Math.random() * 2}px)`;
+                    flower.style.opacity = `${0.5 + Math.random() * 0.5}`;
+                    flower.style.background = `hsl(${Math.random() * 360}, 70%, 75%)`;
+                    
+                    wrapper.appendChild(flower);
+                    container.appendChild(wrapper);
+                }
+            }
+            
+            function generateParticles() {
+                const container = document.getElementById('particle-container');
+                const particleCount = 100;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.width = `${2 + Math.random() * 6}px`;
+                    particle.style.height = particle.style.width;
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    particle.style.top = `${Math.random() * 100}vh`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    particle.style.background = `hsla(${Math.random() * 360}, 70%, 75%, ${0.3 + Math.random() * 0.7})`;
+                    
+                    container.appendChild(particle);
+                }
+            }
+        });
+    </script>
+
+</body></html>
